@@ -32,7 +32,7 @@ controller.ScoreController()
 controller.GameController  
 ↓進行の操作　↑ゲームの状態  
 core.SinglePoker()  
-[^1]ゲーム終了時のスコア更新のみ controller.ScoreController とやり取りする。  
+[^1]:ゲーム終了時のスコア更新のみ controller.ScoreController とやり取りする。  
 
 * スコアの制御  
 controller.ScoreController  
