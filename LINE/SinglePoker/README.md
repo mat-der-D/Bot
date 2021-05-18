@@ -28,11 +28,11 @@ interface.AppInterface().message_handler
 controller.GameController()  
 controller.ScoreController()  
 
-* ゲームの制御[^1]  
+* ゲームの制御  
 controller.GameController  
 ↓進行の操作　↑ゲームの状態  
 core.SinglePoker()  
-[^1]:ゲーム終了時のスコア更新のみ controller.ScoreController とやり取りする。  
+*Note*: ゲーム終了時のスコア更新のみ controller.ScoreController とやり取りする。  
 
 * スコアの制御  
 controller.ScoreController  
