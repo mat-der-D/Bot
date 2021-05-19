@@ -6,7 +6,7 @@
 main.py の直接の窓口となる AppInterface クラスを定義。一回のやり取りで終了する操作(ルール表示やスコア表示など)は自分自身で処理し、二回以上のやり取りが必要な操作(ゲーム本体, スコア消去)は controller.py 内のクラスに任せる。  
 
 * controller.py  
-GameController クラスと ScoreController クラスを定義。それぞれゲーム本体の進行とスコア消去の際の役割を担う。いずれも AppInterface とコアエンジンの間に立ち、コアエンジンには状態の変化の命令を伝え、AppInterface には必要な文言を yield で渡す。GameController に対応するコアエンジンは core の SinglePoker で、ScoreController のコアエンジンは db_score 内の諸関数である。  
+GameController クラスと ScoreController クラスを定義。それぞれゲーム本体の進行とスコア関連の役割を担う。いずれも AppInterface とコアエンジンの間に立ち、コアエンジンには状態の変化の命令を伝え、AppInterface には必要な文言を yield で渡す。GameController に対応するコアエンジンは core の SinglePoker で、ScoreController のコアエンジンは db_score 内の諸関数である。  
 
 * core.py  
 シングルポーカーのゲーム進行のコアエンジンを担う SinglePoker クラスを定義。サンプル用のゲームも実装してあるので、このファイル単体で実行しても遊べる。  
@@ -23,7 +23,7 @@ LINE
 ↓メッセージ　↑返信  
 main.handle_message  
 ↓メッセージ　↑返信の断片  
-interface.AppInterface().message_handler  
+interface.AppInterface().handle_message  
 ↓メッセージ　↑返信の断片  
 controller.GameController()  
 controller.ScoreController()  

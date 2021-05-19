@@ -15,18 +15,18 @@ class AppInterface:
         self.game_controller = GameController(max_turn)
         self.score_controller = ScoreController()
 
-    def message_handler(self, message: str, user_id: str):
+    def handle_message(self, message: str, user_id: str):
         if self.status is Status.MENU:
-            yield from self.menu_message_handler(message, user_id)
+            yield from self.menu_handle_message(message, user_id)
         elif self.status is Status.GAME:
-            yield from self.game_message_handler(message, user_id)
+            yield from self.game_handle_message(message, user_id)
         elif self.status is Status.SCORE:
-            yield from self.score_message_handler(message, user_id)
+            yield from self.score_handle_message(message, user_id)
         else:
             raise Exception(f"unsupported Status {self.status}")
 
     # --- message handler for MENU mode ---
-    def menu_message_handler(self, message: str, user_id: str):
+    def menu_handle_message(self, message: str, user_id: str):
         if message in ("遊ぶ", "ハードモード"):
             if message == "ハードモード":
                 self.game_controller.cpu_strength = CPUStrength.HARD
@@ -74,14 +74,14 @@ class AppInterface:
         yield "「スコアを消す」：スコアを消去します。"
 
     # --- message handler for GAME mode ---
-    def game_message_handler(self, message: str, user_id: str):
-        yield from self.game_controller.message_handler(message, user_id)
+    def game_handle_message(self, message: str, user_id: str):
+        yield from self.game_controller.handle_message(message, user_id)
         if not self.game_controller.is_active:
             self.status = Status.MENU
             self.game_controller.__init__(self.max_turn)
 
     # --- message handler for SCORE mode ---
-    def score_message_handler(self, message: str, user_id: str):
-        yield from self.score_controller.message_handler(message, user_id)
+    def score_handle_message(self, message: str, user_id: str):
+        yield from self.score_controller.handle_message(message, user_id)
         if not self.score_controller.is_asking_clear_score:
             self.status = Status.MENU

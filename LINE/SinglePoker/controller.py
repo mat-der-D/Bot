@@ -24,7 +24,7 @@ class GameController:
         yield "あなたと CPU は山札から一枚ずつ引きました。"
         yield from self.advance_until_your_choice()
 
-    def message_handler(self, message: str, user_id: str):
+    def handle_message(self, message: str, user_id: str):
         # --- Your Turn ---
         if message.lower() not in ("y", "n"):
             yield "Y または n と入力してください。"
@@ -122,7 +122,7 @@ class ScoreController:
     def __init__(self):
         self.is_asking_clear_score = False
 
-    def message_handler(self, message: str, user_id: str):
+    def handle_message(self, message: str, user_id: str):
         if not self.is_asking_clear_score:
             return
         if message.lower() == "y":
