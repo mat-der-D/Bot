@@ -1,15 +1,10 @@
-from flask import Flask, request, abort
-
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
-)
 import os
+
+from flask import Flask, request, abort
+from waitress import serve
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from interface import AppInterface
 
@@ -52,7 +47,7 @@ def handle_message(event):
     user_id = event.source.user_id
     app_interface = interface_dict[user_id]
 
-    reply_generator = app_interface.message_handler(event.message.text, user_id)
+    reply_generator = app_interface.handle_message(event.message.text, user_id)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="\n".join(reply_generator)))
@@ -60,4 +55,4 @@ def handle_message(event):
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    serve(app, host="0.0.0.0", port=port)
