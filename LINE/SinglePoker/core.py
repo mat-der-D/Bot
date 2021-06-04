@@ -155,8 +155,9 @@ class SampleGame:
             y_or_n = input("Do you change your hand?(Y/n):").lower()
             if y_or_n not in ("y", "n"):
                 print("Please input Y or n.")
-            change_hand = y_or_n == "y"
-            break
+            else:
+                change_hand = y_or_n == "y"
+                break
 
         if change_hand:
             self.replace_hand()
